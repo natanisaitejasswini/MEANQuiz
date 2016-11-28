@@ -1,0 +1,63 @@
+ <div ng-controller="answerController as AC">
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Quiz Board</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/#/question/{{AC.current_question._id}}">Go Back to Statement</a></li>
+        <li><a href="#/new_question">Make a Quiz Statement</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{AC.user_session.name}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="logout"><a ng-click="AC.logout()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="background"></div>
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 showContent">
+    <h3>{{AC.current_question.text}}</h3>
+    <p class="dbp">{{AC.current_question.description}}</p><hr>
+
+    <form name="new_answer">
+      <div class="form-group">
+        <label for="answer">Your answer:</label>
+        <textarea name="answer" class="form-control" id="answer" ng-model="AC.answer" placeholder="Statement Content..." required minlength="5"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="details">Supporting details for your answer (optional):</label>
+        <textarea name="details" class="form-control" id="details" ng-model="AC.details" placeholder="More details..."></textarea>
+      </div>
+      <div>
+        <button ng-click="AC.create()" class="btn great">Answer now</button>
+         <a href ng-click='AC.cancel()' class="btn great">Cancel</a>
+      </div>
+    </form>
+    <!-- Validations -->
+      <div ng-if="new_answer.answer.$error.required" ng-show='new_answer.answer.$touched' class="showErr">
+        <p>Enter your answer before submitting...</p>
+      </div>
+      <div ng-if="new_answer.answer.$error.minlength" ng-show='new_answer.answer.$touched' class="showErr">
+        <p>Your Answer must be minimum of 5 characters...</p>
+     </div>
+     <!-- Validation ends -->
+  </div>
+</div>
+</div>
+

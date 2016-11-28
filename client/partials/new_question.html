@@ -1,0 +1,62 @@
+<div ng-controller='questionController as QC'>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="#/dashboard">Quiz Board</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="#/new_question">Make a Quiz Statement</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{QC.user_session.name}}<span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li class="logout"><a ng-click="QC.logout()">Logout</a></li>
+	          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="background"></div>
+	<div class="row">
+	  <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 showContent">
+	    <h3>Add a new Quiz Statement</h3>
+	    <form name="new_question">
+	      <div class="form-group">
+	        <label for="question">Statement:</label>
+	        <textarea name="question" class="form-control" id="question" rows="5" cols="10" ng-model="QC.question" placeholder = "Shot a Question" required minlength='10'></textarea>
+
+	      </div>
+	      <div class="form-group">
+	        <label for="description">Description (optional):</label>
+	        <textarea name="description" class="form-control" id="description" ng-model="QC.description" placeholder="Clue details..."></textarea>
+	      </div>
+	      
+	      <div>
+	      	<button ng-click="QC.create()" class="btn great">Add Now</button>
+	        <a href ng-click="QC.cancel()" class="btn great">Cancel</a>
+	      </div>
+	    </form>
+	    <div ng-if="new_question.question.$error.required" ng-show='new_question.question.$touched' class="showErr">
+	      		<p>You forgot to enter Statement...</p>
+	  	</div>
+	  	<div ng-if="new_question.question.$error.minlength" ng-show='new_question.question.$touched' class="showErr">
+	      	<p>Your Statement must be minimum of 10 characters...</p>
+	  	</div>
+	  </div>
+	</div>
+</div>
+
+
+
